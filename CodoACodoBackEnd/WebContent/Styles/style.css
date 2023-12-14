@@ -1,0 +1,82 @@
+
+.navBarColor
+{
+    background-color: rgb(51,58,64);
+}
+.whiteTipo
+{
+    font-size: 1.3em;
+    color:white
+}
+.nav-link
+{
+    color: gray;
+}
+.nav-link:focus
+{
+    color: white;
+}
+.nav-link:hover
+{
+    color: white;
+}
+.linkCompra
+{
+    color: rgb(41,167,68);
+}
+.btnCompra
+{
+    background-color: rgb(41,167,68);
+}
+.txtPeq
+{
+    font-size: 0.8em;
+}
+
+.bgBlack
+{
+    background-color: rgba(0, 0, 0, 0.473);
+}
+.carruseltext
+{
+  padding-top: 20%;
+  padding-left: 50%;
+  padding-right: 10%;
+  text-align: right;
+  font-size: 1.3em;
+}
+.bg-gray
+{
+    background-color: rgb(53, 58, 64);
+}
+.lineaPuntos
+{
+    text-decoration: underline dotted 1px black;
+}
+.btnEnviarColor
+{
+    border: 0px;
+    color: white;
+    background-color: rgb(150,201,62);
+}
+.btnEnviarColor:hover
+{
+    background-color: rgb(135,187,48);
+    color: white;
+}
+.footerColor
+{
+    background-color: rgb(30, 77, 105);
+}
+.footerText{
+    font-size: 1.1em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+.footerText:hover{
+    color: rgb(211, 211, 211);
+}
+.footerText:focus{
+    color: rgb(94, 228, 123);
+}
