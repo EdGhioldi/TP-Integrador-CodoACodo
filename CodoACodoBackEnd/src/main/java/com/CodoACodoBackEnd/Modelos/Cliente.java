@@ -13,7 +13,7 @@ public class Cliente {
 	private Timestamp fechaBaja;
 	
 	
-	// constructores, getters y setters
+	// Constructor
 	
 	public Cliente(int id, String nombre, String apellido, String email) {
 		this.id = id;
@@ -21,9 +21,10 @@ public class Cliente {
 		this.apellido = apellido;
 		this.email = email;
 		Calendar cal= Calendar.getInstance();
-		this.fechaAlta = new Timestamp(cal.getTimeInMillis());
+		this.fechaAlta = new Timestamp(cal.getTimeInMillis());  // Setea la fecha al momento de instanciar el objeto.
 	}
 	
+	// Getters y setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,9 +56,9 @@ public class Cliente {
 	public Timestamp getFechaBaja() {
 		return fechaBaja;
 	}
-	public void setFechaBajaInstante() {
+	public void setFechaBajaInstante() { 
 		Calendar cal= Calendar.getInstance();
-		this.fechaBaja = new Timestamp(cal.getTimeInMillis());
+		this.fechaBaja = new Timestamp(cal.getTimeInMillis());	// Permite setear la fecha de la baja al momento que se llama al metodo
 	}
 	public int getId() {
 		return id;

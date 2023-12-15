@@ -13,22 +13,8 @@ public class Ticket {
 	private TipoTicket tipoTicket;
 	private int cantidad;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 // constructores, getters y setters
+
+	 // Constructor
 	public Ticket(int id, int idCliente, float precio, TipoTicket tipoTicket, int cantidad) {
 		super();
 		this.id = id;
@@ -37,9 +23,10 @@ public class Ticket {
 		this.tipoTicket = tipoTicket;
 		this.cantidad = cantidad;
 		Calendar cal= Calendar.getInstance();
-		this.fechaCompra = new Timestamp(cal.getTimeInMillis());
+		this.fechaCompra = new Timestamp(cal.getTimeInMillis());  // Setea la fecha al momento de instanciar el objeto.
 	}
 
+	// Getters y setters
 	public int getIdCliente() {
 		return idCliente;
 	}

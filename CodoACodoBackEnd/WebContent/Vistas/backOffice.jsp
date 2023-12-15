@@ -26,17 +26,18 @@
 	                    <img src="img/codoacodo.png" alt="" width="100" height="50" class="d-inline-block">
 	                    Conf Bs As
 	                </div>
+	                <div><h3 class="text-warning"><%=request.getParameter("mostrar").toUpperCase() %></h3></div>
 	                <ul class="nav justify-content-end">
-                		<li class="nav-item">
-                    		<a class="nav-link" href="FrontController?accion=backOffice&mostrar=clientes" >Clientes</a>
+                		<li class="nav-item me-3">
+                    		<a class=" btn btn-outline-primary" href="FrontController?accion=backOffice&mostrar=clientes" >Clientes</a>
+                		</li>
+                		<li class="nav-item me-3">
+                    		<a class=" btn btn-outline-primary" href="FrontController?accion=backOffice&mostrar=oradores" >Oradores</a>
                 		</li>
                 		<li class="nav-item">
-                    		<a class="nav-link" href="FrontController?accion=backOffice&mostrar=oradores" >Oradores</a>
-                		</li>
-                		<li class="nav-item">
-                   			 <a class="nav-link" href="FrontController?accion=backOffice&mostrar=tickets">Tickets</a>
+                   			 <a class=" btn btn-outline-primary" href="FrontController?accion=backOffice&mostrar=tickets">Tickets</a>
                			 </li>
-	                       <li class="nav-item">
+	                       <li class="nav-item ms-5">
 	                        <a class="btn btn-outline-danger" href="FrontController?accion=volver">Salir</a>
 	                   	 </li>
 	                </ul>
@@ -45,7 +46,7 @@
 	    </header>
 	    <main>
              
-              		 <table class="table  table-dark table-info table-striped ">
+              		 <table class="table  table-dark table-info table-bordered border-warning ">
               <% 
               	String categoria=request.getParameter("mostrar");
               	if(categoria==null) categoria="Clientes";
@@ -54,13 +55,13 @@
               	case "oradores":
               		%>
               			<thead>
-              				<td>id</td>
-              				<td>Nombre</td>
-              				<td>Apellido</td>
-              				<td>Tema</td>
-              				<td>Fecha alta</td>
-              				<td>Fecha baja</td>
-              				<td>Acciones</td>
+              				<th>ID</th>
+              				<th>NOMBRE</th>
+              				<th>APELLIDO</th>
+              				<th>TEMA</th>
+              				<th>FECHA ALTA</th>
+              				<th>FECHA BAJA</th>
+              				<th>ACCIONES</th>
               			</thead>
               		<%
               		List<Orador> oradores=OradoresDAO.buscarTodos();
@@ -75,7 +76,7 @@
               				<td><%=o.getFechaAlta()%></td>
               				<td><%=o.getFechaBaja()==null?"N/A":o.getFechaBaja()%></td>
               				<td>
-              					<a class="btn btn-warning btn-sm"  href="FrontController?accion=darBaja&categoria=orador&id=<%=o.getId()%>">Dar baja</a>
+              					<a class="btn btn-warning btn-sm me-2"  href="FrontController?accion=darBaja&categoria=orador&id=<%=o.getId()%>">Dar baja</a>
               					<a class="btn btn-danger btn-sm" href="FrontController?accion=eliminar&categoria=orador&id=<%=o.getId()%>">Eliminar</a>
               				</td>
               			</tr>
@@ -86,43 +87,57 @@
             		%>
        				
             				<thead>
-	              				<td>id</td>
-	              				<td>Cliente</td>
-	              				<td>Fecha de compra</td>
-	              				<td>Cantidad</td>
-	              				<td>Valor total</td>
-	              				<td>Acciones</td>
+	              				<th>ID</th>
+	              				<th>FECHA DE COMPRA</th>
+	              				<th>CLIENTE</th>
+	              				<th>CATEGORIA</th>
+	              				<th>CANTIDAD</th>
+	              				<th>VALOR TOTAL</th>
+	              				<th>ACCIONES</th>
               			</thead>
            
               		<%
               		List<Ticket> tickets=TicketsDAO.buscarTodos();
+              		float totalFacturado=0;
               		for(Ticket t : tickets)
               		{
               			%>
               			<tr>
               				<td><%=t.getId()%></td>
-              				<td><%=ClientesDAO.buscarPorId(t.getIdCliente()).getEmail()%></td>
               				<td><%=t.getFechaCompra()%></td>
+              				<td><%=ClientesDAO.buscarPorId(t.getIdCliente()).getEmail()%></td>
+              				<td><%=t.getTipoTicket().toString()%></td>
               				<td><%=t.getCantidad()%></td>
-              				<td><%=t.getPrecio()%></td>
+              				<td><%="$"+t.getPrecio()%></td>
               				<td>
               					<a class="btn btn-danger btn-sm" href="FrontController?accion=eliminar&categoria=ticket&id=<%=t.getId()%>">Eliminar</a>
               				</td>
               			</tr>
               			<%
+              			totalFacturado+=t.getPrecio();
               		}
+              		%>
+              		<tr>
+              				<td></td>
+              				<td></td>
+              				<td></td>
+              				<td></td>
+              				<td></td>
+              				<td class=" bg-success">TOTAL FACTURADO: $<%=totalFacturado%></td>
+              			</tr>
+              		<%
               		break;
             	default:
             		%>
             		 
               			<thead>
-              				<td>id</td>
-              				<td>Nombre</td>
-              				<td>Apellido</td>
-              				<td>Correo</td>
-              				<td>Fecha alta</td>
-              				<td>Fecha baja</td>
-              				<td>Acciones</td>
+              				<th>ID</th>
+              				<th>NOMBRE</th>
+              				<th>APELLIDO</th>
+              				<th>CORREO</th>
+              				<th>FECHA ALTA</th>
+              				<th>FECHA BAJA</th>
+              				<th>ACCIONES</th>
               			</thead>
               		<%
               		List<Cliente> clientes=ClientesDAO.buscarTodos();
