@@ -29,16 +29,16 @@
 	                <div><h3 class="text-warning"><%=request.getParameter("mostrar").toUpperCase() %></h3></div>
 	                <ul class="nav justify-content-end">
                 		<li class="nav-item me-3">
-                    		<a class=" btn btn-outline-primary" href="FrontController?accion=backOffice&mostrar=clientes" >Clientes</a>
+                    		<a class=" btn btn-outline-primary text-light" href="FrontController?accion=backOffice&mostrar=clientes" >Clientes</a>
                 		</li>
                 		<li class="nav-item me-3">
-                    		<a class=" btn btn-outline-primary" href="FrontController?accion=backOffice&mostrar=oradores" >Oradores</a>
+                    		<a class=" btn btn-outline-primary text-light" href="FrontController?accion=backOffice&mostrar=oradores" >Oradores</a>
                 		</li>
                 		<li class="nav-item">
-                   			 <a class=" btn btn-outline-primary" href="FrontController?accion=backOffice&mostrar=tickets">Tickets</a>
+                   			 <a class=" btn btn-outline-primary text-light" href="FrontController?accion=backOffice&mostrar=tickets">Tickets</a>
                			 </li>
 	                       <li class="nav-item ms-5">
-	                        <a class="btn btn-outline-danger" href="FrontController?accion=volver">Salir</a>
+	                        <a class="btn btn-outline-danger text-light" href="FrontController?accion=volver">Salir</a>
 	                   	 </li>
 	                </ul>
 	            </div>
@@ -77,7 +77,7 @@
               				<td><%=o.getFechaBaja()==null?"N/A":o.getFechaBaja()%></td>
               				<td>
               					<a class="btn btn-warning btn-sm me-2"  href="FrontController?accion=darBaja&categoria=orador&id=<%=o.getId()%>">Dar baja</a>
-              					<a class="btn btn-danger btn-sm" href="FrontController?accion=eliminar&categoria=orador&id=<%=o.getId()%>">Eliminar</a>
+              					<a class="btn btn-danger btn-sm ms-2" href="FrontController?accion=eliminar&categoria=orador&id=<%=o.getId()%>">Eliminar</a>
               				</td>
               			</tr>
               			<%
@@ -152,8 +152,8 @@
               				<td><%=c.getFechaAlta()%></td>
               				<td><%=c.getFechaBaja()==null?"N/A":c.getFechaBaja() %></td>
               				<td>
-              					<a class="btn btn-warning btn-sm"  href="FrontController?accion=darBaja&categoria=cliente&id=<%=c.getId()%>">Dar baja</a>
-              					<a class="btn btn-danger btn-sm" href="FrontController?accion=eliminar&categoria=cliente&id=<%=c.getId()%>">Eliminar</a>
+              					<a class="btn btn-warning btn-sm me-2"  href="FrontController?accion=darBaja&categoria=cliente&id=<%=c.getId()%>">Dar baja</a>
+              					<a class="btn btn-danger btn-sm ms-2" href="FrontController?accion=eliminar&categoria=cliente&id=<%=c.getId()%>">Eliminar</a>
               				</td>
               			</tr>
               			<%

@@ -143,7 +143,7 @@
                                         <button id="btnResumen" name="btnResumen" type="button" class="btn btn-warning">Resumen</button>
                                      </div>
                                       <div class="col g-2 d-grid">
-                                        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success"  value="comprarTicket">Aceptar</button>
+                                        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success" disabled="disabled"  value="comprarTicket">Aceptar</button>
                                      </div>
                         </form>
                     </section>

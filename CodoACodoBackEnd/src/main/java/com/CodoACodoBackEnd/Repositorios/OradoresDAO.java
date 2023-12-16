@@ -13,6 +13,7 @@ public class OradoresDAO {
 
 	public static boolean ingresarOrador(Orador or) throws ClassNotFoundException
 	{
+		if(or==null)return false;
 		String sqlQuery="insert into oradores (nombre,apellido,tema,fecha_alta,fecha_baja) values (?,?,?,?,?)";
 		PreparedStatement ps;
 		try {

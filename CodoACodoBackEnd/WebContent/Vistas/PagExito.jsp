@@ -20,7 +20,7 @@
 	</div>
 	<div class="row m-5">
 		<div class="col"></div>
-		<a class="col-auto text-center btn btn-success" href="FrontController?accion=volver"><i class="fa-solid fa-road" style="color: #000000;"></i> Volver</a>
+		<a class="col-auto text-center btn btn-success" href=<%="FrontController?accion=volver&pagAnterior="+request.getParameter("pagAnterior")+"&mostrar="+request.getParameter("mostrar")%>><i class="fa-solid fa-road" style="color: #000000;"></i> Volver</a>
 		<div class="col"></div>
 	</div>
 

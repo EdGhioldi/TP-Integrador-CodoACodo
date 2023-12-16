@@ -25,13 +25,23 @@ public class FrontController extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String accion = (String) request.getParameter("accion");
+		String accion = request.getParameter("accion");
 		RequestDispatcher rDp;
 		if(accion!=null)
 		switch(accion)
 		{
 		case "volver":
-			rDp=request.getRequestDispatcher("Vistas/index.jsp");
+			String pagAnterior=request.getParameter("pagAnterior");
+			String mostrarTabla=request.getParameter("mostrar");
+			if(pagAnterior!=null &&!pagAnterior.equals("null"))
+			{
+				if(mostrarTabla==null||mostrarTabla.equals("null"))
+					rDp=request.getRequestDispatcher("Vistas/"+pagAnterior);
+				else
+					rDp=request.getRequestDispatcher("Vistas/"+pagAnterior+"?mostrar="+mostrarTabla);
+			}
+			else
+				rDp=request.getRequestDispatcher("Vistas/index.jsp");
 			break;
 		case "vistaCompra":
 			rDp=request.getRequestDispatcher("Vistas/compraTickets.jsp");
@@ -43,12 +53,11 @@ public class FrontController extends HttpServlet {
 			try {
 				if(OradoresDAO.ingresarOrador(new Orador(0,nombreOrador,apellidoOrador,temario)))
 				{
-					
-					rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+					rDp= request.getRequestDispatcher("Vistas/pagExito.jsp");
 				}
 				else
 				{
-					rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+					rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?causa=Error al ingresar el orador");
 				}
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
@@ -58,6 +67,7 @@ public class FrontController extends HttpServlet {
 			
 		case"comprarTicket":
 			try {
+
 				Cliente cliente=ClientesDAO.buscarPorEmail(request.getParameter("iptCorreo"));
 				if(cliente==null)
 				{
@@ -70,7 +80,7 @@ public class FrontController extends HttpServlet {
 				cliente=ClientesDAO.buscarPorEmail(request.getParameter("iptCorreo"));
 				if(cliente==null)
 				{
-					rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+					rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=compraTickets.jsp");
 					break;
 				}
 				int idCliente=cliente.getId();
@@ -80,16 +90,15 @@ public class FrontController extends HttpServlet {
 				Ticket tk= new Ticket(0,idCliente,precio,tipoTicket,cantidad);
 				if(TicketsDAO.ingresarTicket(tk))
 				{
-					rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+					rDp= request.getRequestDispatcher("Vistas/pagExito.jsp?pagAnterior=compraTickets.jsp");
 				}
 				else
 				{
-					rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+					rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=compraTickets.jsp&causa=Error al ingresar la compra");
 				}
 			} catch (ClassNotFoundException e) {
-				//mandar a pagina de error :D
 				e.printStackTrace();
-				rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+				rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=compraTickets.jsp&causa=Error conexion con la base de datos");
 			}
 			break;
 		case "backOffice":
@@ -104,32 +113,32 @@ public class FrontController extends HttpServlet {
 					case"cliente":
 						if(ClientesDAO.eliminarCliente(id))
 						{
-							rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+							rDp= request.getRequestDispatcher("Vistas/pagExito.jsp?pagAnterior=backOffice.jsp&mostrar=clientes");
 						}
 						else
 						{
-							rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+							rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=backOffice.jsp&mostrar=clientes&causa=Error al borrar el registro del cliente");
 						}
 							break;
 				
 					case"ticket":
 						if(TicketsDAO.eliminarTicket(id))
 						{
-							rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+							rDp= request.getRequestDispatcher("Vistas/pagExito.jsp?pagAnterior=backOffice.jsp&mostrar=tickets");
 						}
 						else
 						{
-							rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+							rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=backOffice.jsp&mostrar=tickets&causa=Error al borrar el registro de tickets");
 						}
 						break;
 					case"orador":
 						if(OradoresDAO.eliminarOrador(id))
 						{
-							rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+							rDp= request.getRequestDispatcher("Vistas/pagExito.jsp?pagAnterior=backOffice.jsp&mostrar=oradores");
 						}
 						else
 						{
-							rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+							rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=backOffice.jsp&mostrar=oradores&causa=Error al borrar el registro del orador");
 						}
 						break;
 					default:
@@ -137,7 +146,7 @@ public class FrontController extends HttpServlet {
 						break;
 				}
 			} catch (ClassNotFoundException e) {
-				rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+				rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=backOffice.jsp");
 			}
 			break;
 			
@@ -153,11 +162,11 @@ public class FrontController extends HttpServlet {
 							cl.setFechaBajaInstante();
 							if(ClientesDAO.actualizarCliente(cl))
 							{
-								rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+								rDp= request.getRequestDispatcher("Vistas/pagExito.jsp?pagAnterior=backOffice.jsp&mostrar=clientes");
 							}
 							else
 							{
-								rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+								rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=backOffice.jsp&mostrar=clientes&causa=Error al dar de baja al cliente");
 							}
 							break;
 						case"orador":
@@ -165,11 +174,11 @@ public class FrontController extends HttpServlet {
 							or.setFechaBajaInstante();
 							if(OradoresDAO.actualizarOrador(or))
 							{
-								rDp= request.getRequestDispatcher("Vistas/PagExito.jsp");
+								rDp= request.getRequestDispatcher("Vistas/pagExito.jsp?pagAnterior=backOffice.jsp&mostrar=oradores");
 							}
 							else
 							{
-								rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+								rDp= request.getRequestDispatcher("Vistas/pagFracaso.jsp?pagAnterior=backOffice.jsp&mostrar=oradores&causa=Error al dar de baja al orador");
 							}
 							break;
 							default:
@@ -177,7 +186,7 @@ public class FrontController extends HttpServlet {
 								break;
 					}
 				} catch (ClassNotFoundException e) {
-					rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp");
+					rDp= request.getRequestDispatcher("Vistas/PagFracaso.jsp?pagAnterior=backOffice.jsp&causa=Error conexion con la base de datos");
 				}
 			break;
 			default:
@@ -195,7 +204,6 @@ public class FrontController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("por aca paso");
 		doGet(request, response);
 	}
 

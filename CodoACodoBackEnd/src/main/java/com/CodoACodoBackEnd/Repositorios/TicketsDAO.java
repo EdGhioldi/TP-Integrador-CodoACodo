@@ -15,6 +15,7 @@ public class TicketsDAO {
 	
 	public static boolean ingresarTicket(Ticket tk) throws ClassNotFoundException
 	{
+		if(tk==null) return false;
 		String sqlQuery="insert into tickets (id_cliente,precio,fecha_compra,tipo_ticket,cantidad) values (?,?,?,?,?)";
 		PreparedStatement ps;
 		try {

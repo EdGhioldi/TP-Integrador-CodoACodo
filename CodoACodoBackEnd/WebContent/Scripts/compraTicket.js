@@ -11,7 +11,7 @@
 var sumarTickets= function()
 {	
     let cantidad=iptCantidad.value;
-    if(cantidad==0) return;
+    if(cantidad<=0) return;
     let categoria=selCategoria.options[selCategoria.selectedIndex].value;
     console.log(categoria);
     switch(categoria)
@@ -30,6 +30,8 @@ var sumarTickets= function()
     
     alTotalPago.innerText="Total a pagar: $ "+ ((cantidad*200)-descuento);
      iptPrecio.value=((cantidad*200)-descuento);
+     btnSubmit.disabled=false;
+     btnSubmit.addEventListener("click",sumarTickets);
 }
 
 var borrarDatos=function()
@@ -42,4 +44,3 @@ var borrarDatos=function()
 
 btnBorrar.addEventListener("click",borrarDatos);
 btnResumen.addEventListener("click",sumarTickets);
-btnSubmit.addEventListener("click",sumarTickets);

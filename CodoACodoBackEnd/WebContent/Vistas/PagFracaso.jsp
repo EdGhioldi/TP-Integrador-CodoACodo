@@ -19,9 +19,10 @@
 	<div class="row m-5">
 		<h1 class="text-center text-light">La operacion ha fracasado</h1>		
 	</div>
+	<%out.append("<h2 class='text-center text-light'>"+request.getParameter("causa")+"</h2>");%>
 	<div class="row m-5">
 		<div class="col"></div>
-		<a class="col-auto text-center btn btn-danger" href="FrontController?accion=volver"><i class="fa-solid fa-road" style="color: #000000;"></i> Volver</a>
+		<a class="col-auto text-center btn btn-danger" href=<%="FrontController?accion=volver&pagAnterior="+request.getParameter("pagAnterior")+"&mostrar="+request.getParameter("mostrar")%>><i class="fa-solid fa-road" style="color: #000000;"></i> Volver</a>
 		<div class="col"></div>
 	</div>
 

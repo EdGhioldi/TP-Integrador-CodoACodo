@@ -58,6 +58,7 @@ public class ClientesDAO {
 	}
 	public static boolean ingresarCliente(Cliente cl) throws ClassNotFoundException
 	{
+		if(cl==null) return false;
 		String sqlQuery="insert into clientes (nombre,apellido,email,fecha_alta,fecha_baja) values (?,?,?,?,?)";
 		PreparedStatement ps;
 		try {
